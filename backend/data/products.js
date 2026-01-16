@@ -1,6 +1,5 @@
 const products = [
   {
-    _id: '1',
     name: 'Lash Sensational Mascara',
     image: '/images/maybelline-lash.jpg',
     description:
@@ -13,7 +12,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '2',
     name: 'Super Stay Vinyl Ink Lipstick',
     image: '/images/maybelline-superstay-vinyl-ink.jpg',
     description:
@@ -26,7 +24,6 @@ const products = [
     numReviews: 8,
   },
   {
-    _id: '3',
     name: 'Garnier Fructis Fresh Strengthening Shampoo',
     image: '/images/garnier-fructis-fresh-szampon.jpg',
     description:
@@ -39,7 +36,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '4',
     name: 'L\'oreal Elseve Hyaluron Pure Shampoo',
     image: '/images/loreal-elseve-szampon.jpg',
     description:
@@ -52,7 +48,6 @@ const products = [
     numReviews: 12,
   },
   {
-    _id: '5',
     name: 'ISANA MEN EXTRA POWER Shampoo',
     image: '/images/isana-men-szampon.jpg',
     description:
@@ -65,7 +60,6 @@ const products = [
     numReviews: 10,
   },
   {
-    _id: '6',
     name: 'La Rive I Am Ideal Eau De Parfum',
     image: '/images/la-rive-i-am-ideal-eau-de-parfum.jpg',
     description:
@@ -77,6 +71,6 @@ const products = [
     rating: 4,
     numReviews: 12,
   },
-]
+];
 
-export default products
+export default products;
