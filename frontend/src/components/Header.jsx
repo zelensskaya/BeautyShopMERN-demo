@@ -1,4 +1,4 @@
-import React, { use } from 'react'
+// import React, { use } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {Badge, Navbar, Nav, Container, NavDropdown} from 'react-bootstrap'
 import {FaShoppingCart, FaUser} from 'react-icons/fa'
@@ -7,7 +7,8 @@ import {useSelector, useDispatch} from 'react-redux'
 import { useLogoutMutation } from '../slices/userApiSlice'
 import{logout} from '../slices/authSlice'
 import logo from '../assets/logo.png'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
+import SearchBox from './SearchBox'
 
 const Header = () => {
 
@@ -31,7 +32,7 @@ const Header = () => {
     
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
+      <Navbar style={{ backgroundColor: '#42815e' }} variant="dark" expand="md" collapseOnSelect>
         <Container>
             <LinkContainer to="/">
             <Navbar.Brand>
@@ -42,6 +43,7 @@ const Header = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">
+                    <SearchBox />
                     <LinkContainer to="/cart">
                         <Nav.Link>
                             <FaShoppingCart /> Cart

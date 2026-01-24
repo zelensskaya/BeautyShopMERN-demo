@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter, 
   createRoutesFromElements,
-  Route,  Router,  RouterProvider
+  Route,  RouterProvider
 } from 'react-router-dom'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import {Provider} from 'react-redux';
@@ -35,7 +35,9 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />} >
       <Route index={true} path='/' element={<HomeScreen />} />
+      <Route path='/search/:keyword' element={<HomeScreen />} />
       <Route path='/page/:pageNumber' element={<HomeScreen />} />
+      <Route path='/search/:keyword/page/:pageNumber' element={<HomeScreen />} />
       <Route path='/product/:id' element={<ProductScreen />} />
       <Route path='/cart' element={<CartScreen />} />
       <Route path='/login' element={<LoginScreen />} />

@@ -22,11 +22,6 @@ const addOrderItems = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('No order items');
   } else {
-    // NOTE: here we must assume that the prices from our client are incorrect.
-    // We must only trust the price of the item as it exists in
-    // our DB. This prevents a user paying whatever they want by hacking our client
-    // side code - https://gist.github.com/bushblade/725780e6043eaf59415fbaf6ca7376ff
-
     // get the ordered items from our database
     console.log('orderItems received:', JSON.stringify(orderItems, null, 2));
     const itemsFromDB = await Product.find({
@@ -38,13 +33,16 @@ const addOrderItems = asyncHandler(async (req, res) => {
       const matchingItemFromDB = itemsFromDB.find(
         (itemFromDB) => itemFromDB._id.toString() === itemFromClient._id
       );
-      return {
-        ...itemFromClient,
-        product: itemFromClient._id,
-        price: matchingItemFromDB.price,
-        _id: undefined,
-      };
-    });
+
+    return {
+      name: matchingItemFromDB.name,
+      qty: itemFromClient.qty,
+      image: matchingItemFromDB.image,
+      price: matchingItemFromDB.price,
+      product: matchingItemFromDB._id,
+    };
+  });
+
     console.log('dbOrderItems after mapping:', JSON.stringify(dbOrderItems, null, 2));
 
     // calculate prices
@@ -120,6 +118,24 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
       const paidCorrectAmount = order.totalPrice.toFixed(2) === value;
       console.log('Checking payment amount - totalPrice:', order.totalPrice, 'value:', value, 'match:', paidCorrectAmount);
       if (!paidCorrectAmount) throw new Error('Incorrect amount paid');
+
+      // decrease stock
+    for (const item of order.orderItems) {
+      const product = await Product.findById(item.product);
+
+      if (!product) {
+        throw new Error('Product not found');
+      }
+
+      product.countInStock -= item.qty;
+
+      if (product.countInStock < 0) {
+        product.countInStock = 0;
+      }
+
+      await product.save();
+    }
+
 
       order.isPaid = true;
       order.paidAt = Date.now();
